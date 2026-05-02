@@ -96,7 +96,11 @@ Clone this repo and install locally.
 ```
 git clone https://github.com/HeartMuLa/heartlib.git
 cd heartlib
+python -m venv env
+source venv/bin/activate.fish
+pip3 install torch torchvision torchaudio torchao --index-url https://download.pytorch.org/whl/rocm7.2 (for AMD video card)
 pip install -e .
+
 ```
 
 Download our pretrained checkpoints from huggingface or modelscope using the following command:
@@ -131,6 +135,10 @@ To generate music, run:
 
 ```
 python ./examples/run_music_generation.py --model_path=./ckpt --version="3B"
+
+python ./examples/run_music_generation.py --model_path=./ckpt --version="3B" --lazy_load=True (use this if you
+encounter the "torch.OutOfMemoryError" error when using the video card  with smaller memory space)
+
 ```
 
 By default this command will generate a piece of music conditioned on lyrics and tags provided in `./assets` folder. The output music will be saved at `./assets/output.mp3`.
